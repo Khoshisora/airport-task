@@ -2,7 +2,7 @@ package edu.airport.model;
 
 import edu.airport.config.PlaneConfig;
 import edu.airport.exception.AirportException;
-import edu.airport.model.state.ArrivingState;
+import edu.airport.model.state.AwaitingTerminalState;
 import edu.airport.model.state.PlaneState;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
@@ -17,7 +17,7 @@ public final class Plane implements Callable<PlaneReport> {
   private final PlaneConfig schedule;
   private final AirportFacilities facilities;
 
-  private PlaneState state = new ArrivingState();
+  private PlaneState state = new AwaitingTerminalState();
   private TerminalReservation reservation;
   private Gate gate;
   private int gateNumber;
@@ -38,7 +38,8 @@ public final class Plane implements Callable<PlaneReport> {
   @Override
   public PlaneReport call() throws AirportException {
     long startedAt = System.nanoTime();
-    LOGGER.info("Flight {} started service at airport {}", getId(), facilities.getName());
+    LOGGER.info("Flight {} started service at airport {}: {} to disembark, {} to board",
+        getId(), facilities.getName(), getPassengersToDisembark(), getPassengersToBoard());
     try {
       while (!state.isFinal()) {
         PlaneState nextState = state.proceed(this);
