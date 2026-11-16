@@ -1,0 +1,12 @@
+# Airport simulation data
+# name | gates | terminal capacity | passengers waiting in terminal
+Sheremetyevo | 3 | 240 | 100
+
+# flight | plane capacity | passengers on board to disembark | passengers to board | service time, ms
+SU-100 | 180 | 0 | 60 | 700
+SU-200 | 160 | 80 | 0 | 600
+SU-300 | 200 | 0 | 50 | 500
+SU-400 | 150 | 90 | 0 | 800
+SU-500 | 180 | 0 | 70 | 650
+SU-600 | 220 | 100 | 0 | 900
+SU-700 | 190 | 40 | 30 | 750
